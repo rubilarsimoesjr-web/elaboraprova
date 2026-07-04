@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElaboraProva – IFRS Campus Rio Grande</title>
+<style>
+  :root { --navy:#1a2744; --gold:#c9a84c; --bg:#f5f4f0; --white:#fff; --soft:#5a5a72; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:var(--bg); color:var(--navy); min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem; }
+  .logo { font-size:2.5rem; margin-bottom:0.3rem; }
+  h1 { font-size:1.5rem; font-weight:900; color:var(--navy); margin-bottom:0.2rem; }
+  .inst { font-size:0.82rem; color:var(--soft); margin-bottom:0.1rem; }
+  .sub  { font-size:0.88rem; color:var(--soft); margin-bottom:2rem; }
+  .cards { display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center; margin-bottom:2rem; }
+  .card {
+    background:var(--white); border-radius:12px;
+    box-shadow:0 4px 20px rgba(26,39,68,0.12);
+    padding:1.8rem 2rem; text-align:center;
+    min-width:220px; max-width:260px;
+    text-decoration:none; color:var(--navy);
+    transition:transform 0.2s, box-shadow 0.2s;
+    display:flex; flex-direction:column; align-items:center; gap:0.6rem;
+  }
+  .card:hover { transform:translateY(-3px); box-shadow:0 8px 28px rgba(26,39,68,0.18); }
+  .card-icon  { font-size:2.8rem; }
+  .card-title { font-size:1rem; font-weight:800; }
+  .card-desc  { font-size:0.82rem; color:var(--soft); line-height:1.4; }
+  .card.primary { border-top:4px solid var(--navy); }
+  .card.gold    { border-top:4px solid var(--gold); }
+
+  .qr-section {
+    background:var(--white); border-radius:12px;
+    box-shadow:0 4px 20px rgba(26,39,68,0.10);
+    padding:1.5rem 2rem; text-align:center;
+    max-width:340px; width:100%;
+  }
+  .qr-section h2 { font-size:0.95rem; font-weight:700; margin-bottom:0.3rem; }
+  .qr-section p  { font-size:0.82rem; color:var(--soft); margin-bottom:1rem; line-height:1.4; }
+  #qr-container  { margin:0 auto 0.8rem; width:180px; height:180px; }
+  .url-box {
+    background:var(--bg); border-radius:6px;
+    padding:0.5rem 0.8rem; font-size:0.78rem;
+    font-family:monospace; color:var(--navy);
+    word-break:break-all; margin-bottom:0.5rem;
+  }
+  .badge-wifi { display:inline-block; background:#e0f2fe; color:#0369a1; border-radius:99px; padding:0.2rem 0.7rem; font-size:0.75rem; font-weight:700; }
+</style>
+</head>
+<body>
+
+<div class="logo">⚡</div>
+<h1>ElaboraProva</h1>
+<div class="inst">IFRS – Campus Rio Grande</div>
+<p class="sub">Sistema de elaboração e correção de provas</p>
+
+<div class="cards">
+  <a href="elabora_provas.html" class="card primary">
+    <div class="card-icon">📚</div>
+    <div class="card-title">ElaboraProva</div>
+    <div class="card-desc">Banco de questões, montagem de provas e geração de PDF</div>
+  </a>
+  <a href="corretor.html" class="card gold">
+    <div class="card-icon">📷</div>
+    <div class="card-title">Corretor</div>
+    <div class="card-desc">Escaneia cartões-resposta e corrige automaticamente</div>
+  </a>
+</div>
+
+<div class="qr-section">
+  <h2>📱 Abrir Corretor no Celular</h2>
+  <p>Aponte a câmera do celular para o QR Code abaixo.</p>
+  <div id="qr-container"></div>
+  <div class="url-box" id="url-display">Carregando...</div>
+  <span class="badge-wifi">🌐 Acesso via internet</span>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  const base = window.location.href.replace('index.html','').replace(/\/$/, '');
+  const url  = base + '/corretor.html';
+  document.getElementById('url-display').textContent = url;
+  new QRCode(document.getElementById('qr-container'), {
+    text: url, width:180, height:180,
+    colorDark:'#1a2744', colorLight:'#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+</script>
+</body>
+</html>

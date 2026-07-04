@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElaboraProva – IFRS Campus Rio Grande</title>
+<style>
+  :root { --navy:#1a2744; --gold:#c9a84c; --bg:#f5f4f0; --white:#fff; --soft:#5a5a72; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:var(--bg); color:var(--navy); min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem; }
+
+  /* TELA DE ACESSO */
+  #tela-acesso {
+    position:fixed; inset:0; background:var(--navy);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    z-index:9999; gap:1rem;
+  }
+  #tela-acesso .logo { font-size:2.5rem; }
+  #tela-acesso h1 { font-size:1.3rem; font-weight:900; color:var(--gold); letter-spacing:1px; }
+  #tela-acesso .inst { font-size:0.82rem; color:#a0aec0; margin-bottom:0.5rem; }
+  #tela-acesso .box {
+    background:rgba(255,255,255,0.05); border-radius:10px;
+    padding:1.5rem 2rem; width:min(340px,90vw);
+  }
+  #tela-acesso label { font-size:0.82rem; color:#a0aec0; display:block; margin-bottom:0.4rem; }
+  #tela-acesso input {
+    width:100%; padding:0.6rem 0.8rem; border-radius:6px;
+    border:1.5px solid rgba(255,255,255,0.2);
+    background:rgba(255,255,255,0.08); color:white;
+    font-size:1rem; margin-bottom:0.5rem;
+  }
+  #acesso-erro { color:#fc8181; font-size:0.8rem; margin-bottom:0.5rem; display:none; }
+  #tela-acesso button {
+    width:100%; padding:0.65rem; border:none; border-radius:6px;
+    background:var(--gold); color:var(--navy); font-weight:700;
+    font-size:0.95rem; cursor:pointer;
+  }
+  #tela-acesso .versao { font-size:0.72rem; color:#4a5568; margin-top:0.5rem; }
+
+  /* CONTEÚDO PRINCIPAL */
+  #conteudo { display:none; flex-direction:column; align-items:center; width:100%; }
+  .logo-main { font-size:2.5rem; margin-bottom:0.3rem; }
+  h1.titulo { font-size:1.5rem; font-weight:900; color:var(--navy); margin-bottom:0.2rem; }
+  .inst-main { font-size:0.82rem; color:var(--soft); margin-bottom:0.1rem; }
+  .sub  { font-size:0.88rem; color:var(--soft); margin-bottom:2rem; }
+  .cards { display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center; margin-bottom:2rem; }
+  .card {
+    background:var(--white); border-radius:12px;
+    box-shadow:0 4px 20px rgba(26,39,68,0.12);
+    padding:1.8rem 2rem; text-align:center;
+    min-width:220px; max-width:260px;
+    text-decoration:none; color:var(--navy);
+    transition:transform 0.2s, box-shadow 0.2s;
+    display:flex; flex-direction:column; align-items:center; gap:0.6rem;
+  }
+  .card:hover { transform:translateY(-3px); box-shadow:0 8px 28px rgba(26,39,68,0.18); }
+  .card-icon  { font-size:2.8rem; }
+  .card-title { font-size:1rem; font-weight:800; }
+  .card-desc  { font-size:0.82rem; color:var(--soft); line-height:1.4; }
+  .card.primary { border-top:4px solid var(--navy); }
+  .card.gold    { border-top:4px solid var(--gold); }
+  .qr-section {
+    background:var(--white); border-radius:12px;
+    box-shadow:0 4px 20px rgba(26,39,68,0.10);
+    padding:1.5rem 2rem; text-align:center;
+    max-width:340px; width:100%;
+  }
+  .qr-section h2 { font-size:0.95rem; font-weight:700; margin-bottom:0.3rem; }
+  .qr-section p  { font-size:0.82rem; color:var(--soft); margin-bottom:1rem; line-height:1.4; }
+  #qr-container  { margin:0 auto 0.8rem; width:180px; height:180px; }
+  .url-box { background:var(--bg); border-radius:6px; padding:0.5rem 0.8rem; font-size:0.78rem; font-family:monospace; color:var(--navy); word-break:break-all; margin-bottom:0.5rem; }
+  .sair { font-size:0.78rem; color:var(--soft); margin-top:1.5rem; cursor:pointer; text-decoration:underline; }
+</style>
+</head>
+<body>
+
+<!-- TELA DE ACESSO -->
+<div id="tela-acesso">
+  <div class="logo">⚡</div>
+  <h1>ElaboraProva</h1>
+  <div class="inst">IFRS – Campus Rio Grande</div>
+  <div class="box">
+    <label>Senha de acesso</label>
+    <input type="password" id="input-senha"
+      placeholder="Digite a senha"
+      onkeydown="if(event.key==='Enter') verificarSenha()">
+    <div id="acesso-erro">Senha incorreta. Tente novamente.</div>
+    <button onclick="verificarSenha()">Entrar</button>
+  </div>
+  <div class="versao">v1.0 · 2025</div>
+</div>
+
+<!-- CONTEÚDO PRINCIPAL -->
+<div id="conteudo">
+  <div class="logo-main">⚡</div>
+  <h1 class="titulo">ElaboraProva</h1>
+  <div class="inst-main">IFRS – Campus Rio Grande</div>
+  <p class="sub">Sistema de elaboração e correção de provas</p>
+
+  <div class="cards">
+    <a href="elabora_provas.html" class="card primary">
+      <div class="card-icon">📚</div>
+      <div class="card-title">ElaboraProva</div>
+      <div class="card-desc">Banco de questões, montagem de provas e geração de PDF</div>
+    </a>
+    <a href="corretor.html" class="card gold">
+      <div class="card-icon">✏️</div>
+      <div class="card-title">Corretor</div>
+      <div class="card-desc">Registro manual de respostas e exportação para relatório</div>
+    </a>
+  </div>
+
+  <div class="qr-section">
+    <h2>📱 Abrir Corretor no Celular</h2>
+    <p>Aponte a câmera do celular para o QR Code abaixo.</p>
+    <div id="qr-container"></div>
+    <div class="url-box" id="url-display">Carregando...</div>
+  </div>
+
+  <div class="sair" onclick="sair()">Sair</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const HASH_SENHA = '7914263c447ac73e8f5f95dfb73ab5d9f779acd816f7240d1b0f6000f38bcf9b';
+const ACESSO_KEY = 'elaboraprova_acesso_v1';
+
+async function sha256(texto) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(texto));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function verificarSenha() {
+  const input = document.getElementById('input-senha');
+  const hash  = await sha256(input.value.trim());
+  if (hash === HASH_SENHA) {
+    localStorage.setItem(ACESSO_KEY, JSON.stringify({
+      ts: Date.now(), expira: Date.now() + 30 * 24 * 60 * 60 * 1000
+    }));
+    mostrarConteudo();
+  } else {
+    document.getElementById('acesso-erro').style.display = 'block';
+    input.value = '';
+    input.focus();
+  }
+}
+
+function mostrarConteudo() {
+  document.getElementById('tela-acesso').style.display = 'none';
+  document.getElementById('conteudo').style.display = 'flex';
+  // Gera QR Code do corretor
+  const base = window.location.href.replace('index.html','').replace(/\/$/, '');
+  const url  = base + '/corretor.html';
+  document.getElementById('url-display').textContent = url;
+  new QRCode(document.getElementById('qr-container'), {
+    text: url, width:180, height:180,
+    colorDark:'#1a2744', colorLight:'#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+}
+
+function sair() {
+  localStorage.removeItem(ACESSO_KEY);
+  location.reload();
+}
+
+// Verifica acesso ao carregar
+function init() {
+  try {
+    const dados = JSON.parse(localStorage.getItem(ACESSO_KEY) || '{}');
+    if (dados.expira && Date.now() < dados.expira) { mostrarConteudo(); return; }
+  } catch {}
+  setTimeout(() => document.getElementById('input-senha')?.focus(), 100);
+}
+
+init();
+</script>
+</body>
+</html>
